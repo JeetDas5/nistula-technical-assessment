@@ -1,4 +1,7 @@
 export const classifyQuery = (message) => {
+  if(!message) {
+    throw new Error("Message is required for classification.");
+  }
   const text = message.toLowerCase();
 
   if (text.includes("available")) {

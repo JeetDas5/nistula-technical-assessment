@@ -5,7 +5,7 @@ dotenv.config();
 
 const { Pool } = pg;
 
-if(!process.env.DATABASE_URL) {
+if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not defined");
 }
 
@@ -13,8 +13,10 @@ export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+// Initialize the database and create the messages table if it doesn't exist
 export const initializeDatabase = async () => {
-  await pool.query(`
+  try {
+    await pool.query(`
     CREATE TABLE IF NOT EXISTS messages (
       message_id UUID PRIMARY KEY,
       guest_name TEXT NOT NULL,
@@ -30,4 +32,8 @@ export const initializeDatabase = async () => {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     );
   `);
+  } catch (error) {
+    console.error("Error initializing database:", error);
+    throw error;
+  }
 };

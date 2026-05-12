@@ -1,4 +1,9 @@
 export const determineAction = (score, queryType) => {
+  if (!score || !queryType) {
+    throw new Error(
+      "Both score and queryType are required to determine action.",
+    );
+  }
   if (queryType === "complaint") {
     return "escalate";
   }

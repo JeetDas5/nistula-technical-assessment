@@ -1,4 +1,7 @@
 export const calculateConfidence = (queryType) => {
+  if(!queryType) {
+    throw new Error("Query type is required to calculate confidence.");
+  }
   switch (queryType) {
     case "pre_sales_availability":
       return 0.93;

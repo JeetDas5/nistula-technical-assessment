@@ -1,3 +1,4 @@
+// The context for the sample property details
 export const propertyContext = `
 Property: Villa B1, Assagao, North Goa
 Bedrooms: 3
