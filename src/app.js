@@ -1,9 +1,7 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import { messageRoutes } from "./routes";
-
-dotenv.config();
+import messageRoutes from "./routes/messageRoutes.js";
 
 const app = express();
 

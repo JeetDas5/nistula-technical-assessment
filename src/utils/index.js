@@ -1,4 +1,6 @@
-export * from "./normalizeMessage.js";
-export * from "./classificationService.js";
-export * from "./claudeService.js";
-export * from "./confidenceService.js";
+import { classifyQuery } from "./classificationService.js";
+import { normalizeMessage } from "./normalizeMessage.js";
+import { generateReply } from "./claudeService.js";
+import { calculateConfidence } from "./confidenceService.js";
+
+export { classifyQuery, normalizeMessage, generateReply, calculateConfidence };

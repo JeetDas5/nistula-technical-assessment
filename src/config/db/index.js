@@ -12,3 +12,22 @@ if(!process.env.DATABASE_URL) {
 export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
+
+export const initializeDatabase = async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS messages (
+      message_id UUID PRIMARY KEY,
+      guest_name TEXT NOT NULL,
+      source TEXT NOT NULL,
+      message_text TEXT NOT NULL,
+      query_type TEXT NOT NULL,
+      drafted_reply TEXT NOT NULL,
+      confidence_score NUMERIC(4, 2) NOT NULL,
+      action TEXT NOT NULL,
+      timestamp TIMESTAMPTZ,
+      booking_ref TEXT,
+      property_id TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
+};

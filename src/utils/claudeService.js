@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { propertyContext } from "../context/index.js";
 
 if (!process.env.CLAUDE_API_KEY) {
   throw new Error("CLAUDE_API_KEY environment variable not set");
@@ -9,6 +10,7 @@ const anthropic = new Anthropic({
 });
 
 export const generateReply = async (messageData) => {
+  console.log("Generating reply for message:", messageData);
   const prompt = `
 You are a hospitality support assistant for Nistula Villas.
 
