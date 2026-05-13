@@ -20,6 +20,22 @@ This system receives guest messages from multiple channels, normalizes them into
 
 # Features
 
+## Messaging Architecture
+
+The system follows a sequential pipeline to process every incoming guest message:
+
+1.  **Validation**: Inbound payloads are validated against a Zod schema to ensure data integrity.
+2.  **Classification**: The message is analyzed to determine the query type (e.g., availability, pricing).
+3.  **Normalization**: Channel-specific data is transformed into a unified internal schema.
+4.  **AI Synthesis**: Claude API generates a contextual hospitality response based on guest intent.
+5.  **Confidence Calculation**: A numerical score is assigned to the generated reply based on query type.
+6.  **Action Routing**: The system determines if the message should be auto-sent, reviewed, or escalated.
+7.  **Data Persistence**: All processing steps and metadata are logged into PostgreSQL.
+8.  **Response Delivery**: The final result is returned to the calling webhook or client.
+
+---
+
+
 ## Unified Messaging Pipeline
 
 Supports inbound guest messages from:
