@@ -270,25 +270,8 @@ WEBHOOK_API_KEY=your_secret_key
 
 ---
 
-## 4. Start PostgreSQL
 
-Create database:
-
-```sql
-CREATE DATABASE nistula;
-```
-
----
-
-## 5. Run Schema
-
-```bash
-psql -U postgres -d nistula -f schema.sql
-```
-
----
-
-## 6. Start Server
+## 4. Start Server
 
 ```bash
 npm run dev
@@ -357,6 +340,10 @@ In production, this could be replaced with LLM-based intent classification or hy
 
 ---
 
+## Why Express?
+
+Express was chosen for its simplicity and flexibility over other frameworks. It provides a minimal yet powerful foundation for the APIs.
+
 # Future Improvements
 
 Potential production improvements:
@@ -374,6 +361,4 @@ Potential production improvements:
 
 ---
 
-# Author
-
-[Jeet Das](https://github.com/JeetDas5)
+Built with ❤️ by [Jeet Das](https://github.com/JeetDas5)
