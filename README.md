@@ -35,7 +35,6 @@ The system follows a sequential pipeline to process every incoming guest message
 
 ---
 
-
 ## Unified Messaging Pipeline
 
 Supports inbound guest messages from:
@@ -82,24 +81,32 @@ Each AI-generated response receives a confidence score between 0 and 1.
 
 ### Confidence Logic
 
-| Query Type | Confidence |
-|---|---|
-| pre_sales_availability | 0.93 |
-| pre_sales_pricing | 0.90 |
-| post_sales_checkin | 0.88 |
-| general_enquiry | 0.82 |
-| special_request | 0.72 |
-| complaint | 0.45 |
+| Query Type             | Confidence |
+| ---------------------- | ---------- |
+| pre_sales_availability | 0.93       |
+| pre_sales_pricing      | 0.90       |
+| post_sales_checkin     | 0.88       |
+| general_enquiry        | 0.82       |
+| special_request        | 0.72       |
+| complaint              | 0.45       |
+
+> [!NOTE] > **Rationale for Confidence Scores**:
+> The scoring logic reflects the predictability and operational risk of each query type:
+>
+> - **Direct/Factual (0.90 - 0.93)**: Availability and pricing are highly deterministic and can be answered with high accuracy using property data.
+> - **Standardized (0.88)**: Check-in procedures are usually static and follow a set protocol.
+> - **Variable (0.72 - 0.82)**: General enquiries and special requests can be nuanced, requiring the AI to interpret varied guest needs.
+> - **High Risk (0.45)**: Complaints are sensitive and unpredictable. A low confidence score ensures these are always reviewed or escalated to maintain service quality.
 
 ---
 
 ## Action Decision System
 
-| Confidence Score | Action |
-|---|---|
-| > 0.85 | auto_send |
-| 0.60 - 0.85 | agent_review |
-| < 0.60 | escalate |
+| Confidence Score | Action       |
+| ---------------- | ------------ |
+| > 0.85           | auto_send    |
+| 0.60 - 0.85      | agent_review |
+| < 0.60           | escalate     |
 
 All complaints are automatically escalated regardless of confidence score.
 
@@ -213,9 +220,9 @@ x-api-key: your_secret_key
 
 ```json
 {
-  "message_id": "uuid",
+  "message_id": "72530897-5e4c-45c2-aff5-050fa53c3c60",
   "query_type": "pre_sales_availability",
-  "drafted_reply": "Hi Rahul! Great news — Villa B1 is available from April 20 to 24...",
+  "drafted_reply": "Dear Guest,\n\nThank you for your inquiry about Villa B1 in Assagao, North Goa.\n\n**Availability:** Yes, Villa B1 is available from April 20-24, 2024.\n\n**Rate for 2 adults:** INR 18,000 per night (4 nights = INR 72,000 total)\n\n**Villa Highlights:**\n- 3-bedroom villa accommodating up to 6 guests\n- Private swimming pool\n- WiFi included\n- Chef available on call\n- Check-in: 2pm | Check-out: 11am\n\n**Booking Terms:** Free cancellation up to 7 days before check-in.\n\nWould you like to proceed with the booking or do you have any other questions about the villa?\n\nBest regards,\nNistula Villas Team",
   "confidence_score": 0.93,
   "action": "auto_send"
 }
@@ -277,7 +284,7 @@ Create `.env`
 ```env
 PORT=5000
 
-DATABASE_URL=postgresql://postgres:password@localhost:5432/nistula
+DATABASE_URL=postgresql://postgres:password@localhost:5432/dbname
 
 CLAUDE_API_KEY=your_claude_api_key
 
@@ -285,7 +292,6 @@ WEBHOOK_API_KEY=your_secret_key
 ```
 
 ---
-
 
 ## 4. Start Server
 
@@ -311,7 +317,6 @@ The system was tested with multiple scenarios:
 4. Check-in assistance
 5. Invalid payload validation
 6. Invalid API key access
-7. Rate limiting behavior
 
 ---
 
