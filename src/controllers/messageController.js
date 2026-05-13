@@ -84,7 +84,7 @@ export const handleMessage = async (req, res) => {
       });
     }
 
-    // PostgreSQL Error
+    // Database Error
     if (error.code) {
       return res.status(500).json({
         success: false,
