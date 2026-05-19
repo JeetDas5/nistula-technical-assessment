@@ -186,9 +186,26 @@ src/
 └── server.js
 ```
 
----
+# API Endpoints
 
-# API Endpoint
+## GET `/health`
+
+Get server status and service health.
+
+### Headers
+
+*None*
+
+### Sample Response
+
+```json
+{
+  "status": "OK",
+  "timestamp": "2026-05-20T00:42:04.123Z"
+}
+```
+
+---
 
 ## POST `/webhook/message`
 
